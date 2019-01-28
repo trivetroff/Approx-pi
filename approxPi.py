@@ -19,6 +19,8 @@ def gen_pi(args):
         print(engine.MethodeSerieInvCarres(args.depth))
     elif args.method == '2':
         print (engine.MethodeSerieInvCarresImparis(args.depth))
+    elif args.method == '3':
+        print (engine.MethodeSerieRamanujan(args.depth))
 
 def displayGraphCompareMethods(args):
     engine = PiMethodes()
@@ -38,13 +40,15 @@ def estimatePi(args):
     pi = engine.realPi()
     pi = roundNumber(pi, args.precision)
     estimation = 0
-    depth = 1
+    depth = 0
     while not roundNumber(estimation, args.precision) == pi:
+        depth +=1
         if (args.method == '1'):
             estimation = engine.MethodeSerieInvCarres(depth)
         elif (args.method == '2'):
             estimation = engine.MethodeSerieInvCarresImparis(depth)
-        depth += 1
+        elif (args.method == '3'):
+            estimation = engine.MethodeSerieRamanujan(depth)
     print("Result :" + str(depth))
 
 if __name__ == '__main__':
@@ -54,7 +58,7 @@ if __name__ == '__main__':
 
     #Generation of pi parse
     genpi_pars = subparser.add_parser('genpi', help='Generate pi')
-    genpi_pars.add_argument("--method", help="Choose the method (normal(1), imparis(2))", type=str, default='1')
+    genpi_pars.add_argument("--method", help="Choose the method (normal(1), imparis(2), ramanujan(3))", type=str, default='1')
     genpi_pars.add_argument("depth", help="Depth of sum", type=int)
     genpi_pars.set_defaults(func=gen_pi)
 
@@ -66,7 +70,7 @@ if __name__ == '__main__':
     #Generation of findpi parse
     findpi_pars = subparser.add_parser('estimatepi', help='Find index for which pi is estimated with a good precision')
     findpi_pars.add_argument("precision", help="Precision of pi", type=int)
-    findpi_pars.add_argument("--method", help="Choose the method (normal(1), imparis(2))", type=str, default='1')
+    findpi_pars.add_argument("--method", help="Choose the method (normal(1), imparis(2), ramanujan(3))", type=str, default='1')
     findpi_pars.set_defaults(func=estimatePi)
 
     args = parser.parse_args()

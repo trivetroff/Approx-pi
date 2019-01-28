@@ -67,5 +67,15 @@ class PiMethodes:
     def MethodeSerieInvCarresImparis(self,n):
         return math.sqrt(8 * self.SerieInvCarresImparis(n))
 
+    def SerieRamanujan(self,n):
+        result = 0
+        for k in range(0, n + 1):
+            result += ((math.factorial(4 * k)) / (math.pow(math.factorial(k), 4))) * (
+                        (1103 + 26390 * k) / math.pow((4 * 99), (4 * k)))
+        return result
+
+    def MethodeSerieRamanujan(self,n):
+        return 1 / (((2 * math.sqrt(2)) / 9801) * self.SerieRamanujan(n))
+
     def realPi(self):
         return math.pi
