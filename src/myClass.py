@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import matplotlib.pyplot as plt
 import math
+import random
 
 
 
@@ -64,7 +65,7 @@ class PiMethodes:
             result += 1 / math.pow((2 * k) + 1, 2)
         return result
 
-    def MethodeSerieInvCarresImparis(self,n):
+    def MethodeSerieInvCarresImparis(self, n):
         return math.sqrt(8 * self.SerieInvCarresImparis(n))
 
     def SerieRamanujan(self,n):
@@ -74,8 +75,22 @@ class PiMethodes:
                         (1103 + 26390 * k) / math.pow((4 * 99), (4 * k)))
         return result
 
-    def MethodeSerieRamanujan(self,n):
+    def MethodeSerieRamanujan(self, n):
         return 1 / (((2 * math.sqrt(2)) / 9801) * self.SerieRamanujan(n))
+
+    def TirageMonteCarlo(self, n):
+        result = 0
+        i = 0
+        for i in range(n):
+            x = random.uniform(0.0, 1.0)
+            y = random.uniform(0.0, 1.0)
+            if(x**2+y**2 <= 1):
+                result += 1
+        result = result/n
+        return result
+
+    def MonteCarlo(self, n):
+        return self.TirageMonteCarlo(n)*4
 
     def realPi(self):
         return math.pi

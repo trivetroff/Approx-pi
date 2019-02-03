@@ -49,6 +49,8 @@ def estimatePi(args):
             estimation = engine.MethodeSerieInvCarresImparis(depth)
         elif (args.method == '3'):
             estimation = engine.MethodeSerieRamanujan(depth)
+        elif (args.method == '4'):
+            estimation = engine.MonteCarlo(depth)
     print("Result :" + str(depth))
 
 if __name__ == '__main__':
@@ -58,7 +60,7 @@ if __name__ == '__main__':
 
     #Generation of pi parse
     genpi_pars = subparser.add_parser('genpi', help='Generate pi')
-    genpi_pars.add_argument("--method", help="Choose the method (normal(1), imparis(2), ramanujan(3))", type=str, default='1')
+    genpi_pars.add_argument("--method", help="Choose the method (normal(1), imparis(2), ramanujan(3), MonteCarlo(4))", type=str, default='1')
     genpi_pars.add_argument("depth", help="Depth of sum", type=int)
     genpi_pars.set_defaults(func=gen_pi)
 
@@ -70,7 +72,7 @@ if __name__ == '__main__':
     #Generation of findpi parse
     findpi_pars = subparser.add_parser('estimatepi', help='Find index for which pi is estimated with a good precision')
     findpi_pars.add_argument("precision", help="Precision of pi", type=int)
-    findpi_pars.add_argument("--method", help="Choose the method (normal(1), imparis(2), ramanujan(3))", type=str, default='1')
+    findpi_pars.add_argument("--method", help="Choose the method (normal(1), imparis(2), ramanujan(3), MonteCarlo(4))", type=str, default='1')
     findpi_pars.set_defaults(func=estimatePi)
 
     args = parser.parse_args()
